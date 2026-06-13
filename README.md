@@ -22,6 +22,7 @@ A estrutura principal dos testes está localizada no diretório `projects/starbu
   - Exemplo atual: `catalogo.feature` (Cenários de teste do catálogo).
 - `features/step_definitions/`: Contém os passos (`steps.rb`) em Ruby que conectam os cenários descritos em Gherkin com a execução da automação.
 - `features/support/`: Arquivos de configuração de ambiente (`env.rb`).
+- `cucumber.yml`: Arquivo de configuração do Cucumber (ex: desabilita a publicação de relatórios na nuvem).
 
 ## 🌱 Status do Projeto
 
@@ -43,7 +44,7 @@ Este repositório é um "organismo vivo". Volte sempre para conferir as novas at
    ```bash
    bundle install
    ```
-4. Execute os testes com o Cucumber:
+4. Execute os testes com o Cucumber utilizando o Bundler:
    ```bash
-   cucumber
+   bundle exec cucumber
    ```
