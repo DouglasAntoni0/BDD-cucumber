@@ -188,7 +188,9 @@ Funcionalidade: Catálogo de cafés
 
 ## 🌱 Status do Projeto
 
-✅ **Todos os cenários passando**
+🚧 **Em Desenvolvimento Contínuo** — Todos os cenários atuais passando ✅
+
+Este projeto está em constante evolução. À medida que avanço no curso, vou implementando novos cenários, novas features e aprimorando o código existente.
 
 | Funcionalidade | Status |
 |:---|:---:|
@@ -197,7 +199,8 @@ Funcionalidade: Catálogo de cafés
 | Produto indisponível (popup) | ✅ Concluído |
 | Novos cenários e features | 📋 Planejado |
 
-Este repositório é um **"organismo vivo"**. Volte sempre para conferir as novas atualizações, automações e melhorias que estou implementando ao longo da minha jornada de aprendizado!
+> [!NOTE]
+> Este repositório é um **"organismo vivo"**. Volte sempre para conferir as novas atualizações, automações e melhorias que estou implementando ao longo da minha jornada de aprendizado!
 
 ---
 
