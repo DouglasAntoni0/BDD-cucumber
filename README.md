@@ -85,16 +85,16 @@ Cenário: Iniciar a compra de um café
   E o valor total da compra deve ser "R$ 19,99"
 ```
 
-### ⚠️ Cenário 3 — Café indisponível
+### ✅ Cenário 3 — Café indisponível
 
 Testa o comportamento quando um produto indisponível é selecionado, esperando um popup de alerta.
 
 ```gherkin
-Cenário: Café indisponível
-  Dado que estou na página principal da Starbugs
-  E que vou comprar o café "Expresso Cremoso"
-  Quando início a compra desse item
-  Então devo ver um popup informando que o produto está indisponível
+Cenário: Café indisponivel
+  Dado que estou na página de principal da Starbugs
+  E que desejo comprar o café "Expresso Cremoso"
+  Quando inicio a compra desse item
+  Então devo ver um popup informando que o produto está indisponivel
 ```
 
 ---
@@ -178,23 +178,23 @@ Funcionalidade: Catálogo de cafés
 
   Cenário: Acessar o catálogo de cafés na pagina principal  ✅
   Cenário: Iniciar a compra de um café                      ✅
-  Cenário: Café indisponivel                                ⚠️ (em implementação)
+  Cenário: Café indisponivel                                ✅
 
-3 scenarios (2 passed, 1 undefined)
-13 steps (9 passed, 3 undefined, 1 skipped)
+3 scenarios (3 passed)
+13 steps (13 passed)
 ```
 
 ---
 
 ## 🌱 Status do Projeto
 
-⚠️ **Em Desenvolvimento Contínuo**
+✅ **Todos os cenários passando**
 
 | Funcionalidade | Status |
 |:---|:---:|
 | Catálogo de cafés | ✅ Concluído |
 | Fluxo de compra (checkout) | ✅ Concluído |
-| Produto indisponível (popup) | 🔨 Em progresso |
+| Produto indisponível (popup) | ✅ Concluído |
 | Novos cenários e features | 📋 Planejado |
 
 Este repositório é um **"organismo vivo"**. Volte sempre para conferir as novas atualizações, automações e melhorias que estou implementando ao longo da minha jornada de aprendizado!

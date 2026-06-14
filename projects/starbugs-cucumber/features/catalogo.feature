@@ -20,9 +20,9 @@ E o valor total da compra deve ser "R$ 19,99"
 
 
 Cenário: Café indisponivel
-Dado que estou na página principal da Starbugs
-E que vou compraro café "Expresso Cremoso"
-Quando ínicio a compra desse item
+Dado que estou na página de principal da Starbugs
+E que desejo comprar o café "Expresso Cremoso"
+Quando inicio a compra desse item
 Então devo ver um popup informando que o produto está indisponivel
 
 
