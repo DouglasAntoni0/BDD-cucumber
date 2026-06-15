@@ -72,14 +72,17 @@ Cenário: Acessar o catálogo de cafés na pagina principal
 
 ### ✅ Cenário 2 — Iniciar a compra de um café
 
-Simula o fluxo completo de compra: selecionar um café, verificar o checkout, e validar o valor total.
+Simula o fluxo completo de compra: selecionar um café, verificar os detalhes no checkout e validar o valor total (produto + entrega).
+
+Utiliza uma **tabela Gherkin** para passar os dados do produto de forma organizada, convertida em hash no step definition via `rows_hash`.
 
 ```gherkin
 Cenário: Iniciar a compra de um café
   Dado que estou na página de principal da Starbugs
-  E que desejo comprar o café "Expresso Gelado"
-  E que esse produto custa "R$ 9,99"
-  E que o custo de entrega é de "R$ 10,00"
+  E que desejo comprar o seguinte produto:
+    | name     | Expresso Gelado |
+    | price    | R$ 9,99         |
+    | delivery | R$ 10,00        |
   Quando inicio a compra desse item
   Então devo ver a pagina de Checkout com os detalhes do produto
   E o valor total da compra deve ser "R$ 19,99"
@@ -87,12 +90,13 @@ Cenário: Iniciar a compra de um café
 
 ### ✅ Cenário 3 — Café indisponível
 
-Testa o comportamento quando um produto indisponível é selecionado, esperando um popup de alerta.
+Testa o comportamento quando um produto indisponível é selecionado. Verifica que a aplicação exibe um **popup de alerta** (SweetAlert2) informando ao usuário que o produto não está disponível.
 
 ```gherkin
 Cenário: Café indisponivel
   Dado que estou na página de principal da Starbugs
-  E que desejo comprar o café "Expresso Cremoso"
+  E que desejo comprar o seguinte produto:
+    | name | Expresso Cremoso |
   Quando inicio a compra desse item
   Então devo ver um popup informando que o produto está indisponivel
 ```
@@ -181,7 +185,7 @@ Funcionalidade: Catálogo de cafés
   Cenário: Café indisponivel                                ✅
 
 3 scenarios (3 passed)
-13 steps (13 passed)
+12 steps (12 passed)
 ```
 
 ---
@@ -197,6 +201,7 @@ Este projeto está em constante evolução. À medida que avanço no curso, vou 
 | Catálogo de cafés | ✅ Concluído |
 | Fluxo de compra (checkout) | ✅ Concluído |
 | Produto indisponível (popup) | ✅ Concluído |
+| Dados via tabelas Gherkin (rows_hash) | ✅ Concluído |
 | Novos cenários e features | 📋 Planejado |
 
 > [!NOTE]
@@ -211,10 +216,13 @@ Este projeto está em constante evolução. À medida que avanço no curso, vou 
 - ✅ Configurar o Capybara com Selenium para automação web
 - ✅ Usar seletores CSS para interagir com elementos da página
 - ✅ Utilizar asserções RSpec (`expect`, `to eq`, `to eql`, `to be >`)
-- ✅ Compartilhar estado entre steps usando variáveis de instância (`@product_name`)
+- ✅ Compartilhar estado entre steps usando variáveis de instância (`@product`)
 - ✅ Gerenciar dependências com Bundler e Gemfile
 - ✅ Configurar o Cucumber com `cucumber.yml`
 - ✅ Executar testes filtrados por tags (`-t @tag`)
+- ✅ Usar tabelas Gherkin com `rows_hash` para passar dados estruturados aos steps
+- ✅ Validar popups e alertas de UI (SweetAlert2) nos testes
+- ✅ Reutilizar steps genéricos para diferentes cenários de teste
 
 ---
 
