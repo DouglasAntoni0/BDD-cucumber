@@ -12,7 +12,7 @@
             E informo os demais dados do endereço:
             | Numero      | 1000    |
             | Complemento | Apto 22 |
-            E escolho a forma de pagamento "Cartão de Débito"
-            E por fim finalizo a compra
-            Então sou redirecionado para a página de confirmação de Pedidos
-            E deve ser informando um prazo de entrega entrega entre 20 a 30 minutos
+E escolho a forma de pagamento "Cartão de Débito"
+E por fim finalizo a compra
+Então sou redirecionado para a página de confirmação de Pedidos
+E deve ser informando o seguinte prazo de entrega: "20 min - 30 min"
