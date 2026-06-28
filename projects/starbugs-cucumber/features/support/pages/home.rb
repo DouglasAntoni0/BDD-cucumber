@@ -1,12 +1,14 @@
 class HomePage
   include Capybara::DSL
 
+  BASE_URL = ENV.fetch('STARBUGS_BASE_URL', 'https://starbugs-qa.vercel.app')
+
   def open
-    visit 'https://starbugs.vercel.app'
+    visit BASE_URL
   end
 
   def coffee_list
-    return all('.coffee-item')
+    all('.coffee-item')
   end
 
   def buy(coffee_name)

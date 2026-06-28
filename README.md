@@ -1,311 +1,186 @@
-# ☕ BDD com Cucumber — Starbugs Coffee
+# BDD com Cucumber | Starbugs Coffee
 
 ![Ruby](https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white)
 ![Cucumber](https://img.shields.io/badge/Cucumber-23D96C?style=for-the-badge&logo=cucumber&logoColor=white)
 ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
 ![Capybara](https://img.shields.io/badge/Capybara-8B0000?style=for-the-badge&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-Bem-vindo(a) ao repositório do meu projeto de estudos sobre **BDD (Behavior Driven Development)** utilizando o framework **Cucumber** com a linguagem **Ruby**.
+Projeto de automação E2E para a aplicação **Starbugs Coffee**, construído com **Ruby, Cucumber, Capybara e Selenium WebDriver**. A proposta é validar fluxos reais de usuário com cenários BDD escritos em português, mantendo o código limpo, legível e preparado para execução local e em pipeline de CI/CD.
 
-Este projeto faz parte de um curso que estou realizando e serve como um **portfólio prático de testes automatizados**. O repositório está em **constante atualização** — à medida que avanço nos estudos, adiciono novas funcionalidades, novos cenários de teste e aprimoro o código existente.
+A aplicação testada está disponível em: [https://starbugs-qa.vercel.app](https://starbugs-qa.vercel.app)
 
----
+## Visão Geral
 
-## 🚀 Sobre o Projeto
+Este repositório representa uma base prática de testes automatizados com foco em qualidade de produto, clareza de comunicação e manutenção sustentável. Os cenários foram organizados para documentar comportamento esperado, enquanto a implementação usa Page Object para reduzir duplicação e manter a automação fácil de evoluir.
 
-O projeto em desenvolvimento no momento é o **Starbugs** — uma aplicação web de cafeteria onde implementamos testes guiados por comportamento (BDD).
+A estrutura foi pensada para demonstrar domínio dos pontos que realmente importam em automação de testes: leitura simples dos cenários, separação clara de responsabilidades, execução reproduzível, evidências em falha e integração com GitHub Actions.
 
-A ideia central é:
+## Stack Técnica
 
-> Escrever cenários de teste em **linguagem natural (Gherkin)** para garantir que a aplicação funcione exatamente como esperado do ponto de vista do usuário.
+| Tecnologia | Papel no projeto |
+|:---|:---|
+| Ruby | Linguagem principal da automação |
+| Cucumber | Execução dos cenários BDD em Gherkin |
+| Capybara | DSL para interação com a interface web |
+| Selenium WebDriver | Controle do navegador Chrome |
+| RSpec Matchers | Asserções dos resultados esperados |
+| Bundler | Gerenciamento das dependências Ruby |
+| GitHub Actions | Pipeline de CI/CD para execução automatizada |
 
-🔗 **Aplicação testada:** [starbugs.vercel.app](https://starbugs.vercel.app/)
+## Arquitetura
 
----
+O projeto usa o padrão **Page Object**, mantendo a regra de negócio dos testes separada dos seletores e ações de tela. Isso deixa os steps mais expressivos e reduz o impacto de mudanças na interface.
 
-## 🛠️ Tecnologias Utilizadas
+| Classe | Responsabilidade |
+|:---|:---|
+| `HomePage` | Acessa a aplicação, lista cafés e inicia compras |
+| `CheckoutPage` | Valida produto, total, endereço, pagamento, cupons e notificações |
+| `OrderPage` | Valida a confirmação do pedido e o prazo de entrega |
+| `Popup` | Centraliza validações de mensagens em popup |
 
-| Tecnologia | Finalidade |
-|:---:|:---|
-| [Ruby](https://www.ruby-lang.org/pt/) | Linguagem de programação principal |
-| [Cucumber](https://cucumber.io/) | Framework BDD para execução de cenários em Gherkin |
-| [Capybara](https://github.com/teamcapybara/capybara) | DSL para interação com elementos da interface web |
-| [Selenium WebDriver](https://www.selenium.dev/) | Automação do navegador (Chrome) |
-| [RSpec](https://rspec.info/) | Biblioteca de asserções (expects/matchers) |
-| [Bundler](https://bundler.io/) | Gerenciamento de dependências Ruby (Gemfile) |
+Os objetos são inicializados automaticamente no hook `Before`, deixando `@home`, `@checkout`, `@order` e `@popup` disponíveis para os cenários.
 
----
+## Cenários Automatizados
 
-## 📁 Estrutura do Projeto
+A suíte cobre os principais fluxos da jornada do usuário:
 
+| Feature | Cobertura |
+|:---|:---|
+| Catálogo | Acesso ao catálogo, compra inicial e produto indisponível |
+| Pedidos | Compra completa com CEP, endereço, pagamento e confirmação |
+| Cupons | Cupom válido, cupom expirado e cupom inválido |
+
+Baseline atual da suíte:
+
+```text
+7 scenarios (7 passed)
+30 steps (30 passed)
 ```
-starbugs-cucumber/
-├── Gemfile                                  # Dependências do projeto
-├── Gemfile.lock                             # Lock das versões das gems
-├── cucumber.yml                             # Configuração do Cucumber
-├── README.md                                # Documentação do projeto
+
+## Estrutura Do Projeto
+
+```text
+projects/starbugs-cucumber/
+├── Gemfile
+├── Gemfile.lock
+├── cucumber.yml
 └── features/
-    ├── catalogo.feature                     # Cenários BDD — Catálogo de cafés
-    ├── pedido.feature                       # Cenários BDD — Fluxo de pedidos
+    ├── catalogo.feature
+    ├── cupom.feature
+    ├── pedido.feature
     ├── step_definitions/
-    │   ├── steps.rb                         # Steps do catálogo
-    │   ├── pedidos_steps.rb                 # Steps dos pedidos
-    │   └── catalogo_steaps.rb               # (reservado para futuros steps)
+    │   ├── cupom_steps.rb
+    │   ├── pedidos_steps.rb
+    │   └── steps.rb
     └── support/
-        ├── env.rb                           # Configuração do Capybara e Selenium
-        ├── hooks.rb                         # Hooks — inicialização dos Page Objects
+        ├── env.rb
+        ├── hooks.rb
         └── pages/
-            ├── home.rb                      # Page Object — Página principal
-            ├── checkout.rb                  # Page Object — Página de checkout
-            └── components.rb                # Page Object — Componentes (popups)
+            ├── checkout.rb
+            ├── components.rb
+            ├── home.rb
+            └── order.rb
 ```
 
----
+## Pré-requisitos
 
-## 🧩 Arquitetura — Page Object Pattern
+Antes de executar, mantenha estes itens instalados:
 
-O projeto utiliza o padrão **Page Object** para organizar a interação com a interface da aplicação. Cada página ou componente é representado por uma classe Ruby que encapsula os seletores e ações correspondentes:
+- Ruby 4.0 ou versão compatível com as gems do projeto.
+- Bundler para instalação das dependências.
+- Google Chrome para execução dos testes E2E.
+- Acesso à internet para abrir a aplicação QA e, quando necessário, baixar dependências.
 
-| Classe | Arquivo | Responsabilidade |
-|:---|:---|:---|
-| `HomePage` | `pages/home.rb` | Navegar à página principal, listar cafés e iniciar compra |
-| `CheckoutPage` | `pages/checkout.rb` | Validar detalhes do produto, buscar CEP, preencher endereço, escolher pagamento e finalizar pedido |
-| `Popup` | `pages/components.rb` | Validar popups de alerta (SweetAlert2) |
+Com Selenium 4, o gerenciamento do driver do Chrome é feito automaticamente pelo Selenium Manager na maioria dos ambientes.
 
-As instâncias são inicializadas automaticamente no **hook** `Before`, disponibilizando `@home`, `@checkout` e `@popup` para todos os steps.
+## Como Executar Localmente
 
----
+Clone o repositório e acesse o projeto:
 
-## 📝 Cenários de Teste
-
-### 📦 Feature: Catálogo de Cafés
-
-Cenários escritos em **Gherkin** (português) no arquivo [`catalogo.feature`](features/catalogo.feature).
-
-#### ✅ Cenário 1 — Acessar o catálogo de cafés
-
-Valida que ao acessar a página principal, uma lista de cafés é exibida.
-
-```gherkin
-Cenário: Acessar o catálogo de cafés na pagina principal
-  Quando acesso a página principal da Starbugs
-  Então eu devo ver uma lista de cafés disponíveis
+```bash
+git clone https://github.com/DouglasAntoni0/BDD-cucumber.git
+cd BDD-cucumber/projects/starbugs-cucumber
 ```
 
-#### ✅ Cenário 2 — Iniciar a compra de um café
+Instale as dependências:
 
-Simula o fluxo completo de compra: selecionar um café, verificar os detalhes no checkout e validar o valor total (produto + entrega).
-
-Utiliza uma **tabela Gherkin** para passar os dados do produto de forma organizada, convertida em hash no step definition via `rows_hash`.
-
-```gherkin
-Cenário: Iniciar a compra de um café
-  Dado que estou na página de principal da Starbugs
-  E que desejo comprar o seguinte produto:
-    | name     | Expresso Gelado |
-    | price    | R$ 9,99         |
-    | delivery | R$ 10,00        |
-  Quando inicio a compra desse item
-  Então devo ver a pagina de Checkout com os detalhes do produto
-  E o valor total da compra deve ser "R$ 19,99"
+```bash
+bundle install
 ```
 
-#### ✅ Cenário 3 — Café indisponível
+Execute a suíte completa:
 
-Testa o comportamento quando um produto indisponível é selecionado. Verifica que a aplicação exibe um **popup de alerta** (SweetAlert2) informando ao usuário que o produto não está disponível.
-
-```gherkin
-Cenário: Café indisponivel
-  Dado que estou na página de principal da Starbugs
-  E que desejo comprar o seguinte produto:
-    | name | Expresso Cremoso |
-  Quando inicio a compra desse item
-  Então devo ver um popup informando que o produto está indisponivel
+```bash
+bundle exec cucumber
 ```
 
----
+Execute apenas a validação de carregamento dos cenários e steps:
 
-### 🛒 Feature: Pedidos
-
-Cenários escritos no arquivo [`pedido.feature`](features/pedido.feature), cobrindo o fluxo completo de compra — da seleção do produto até a confirmação do pedido.
-
-#### 🔧 Cenário 4 — Compra bem sucedida
-
-Testa o fluxo end-to-end de uma compra: selecionar produto, buscar CEP, preencher endereço, escolher forma de pagamento e finalizar o pedido.
-
-```gherkin
-Cenario: Compra bem sucedida
-  Dado que estou na pagina principal da Starbugs
-  E que iniciei a compra do item "Expresso Tradicional"
-  Quando faço a busca do seguinte CEP: "04534011"
-  E informo os demais dados do endereço:
-    | Numero      | 1000    |
-    | Complemento | Apto 22 |
-  E escolho a forma de pagamento "Cartão de Débito"
-  E por fim finalizo a compra
-  Então sou redirecionado para a página de confirmação de Pedidos
-  E deve ser informando um prazo de entrega entrega entre 20 a 30 minutos
+```bash
+bundle exec cucumber --dry-run
 ```
 
-> [!NOTE]
-> Os dois últimos steps de validação estão marcados como `pending` e serão implementados em breve.
+Execute um cenário ou grupo por tag, quando houver tags configuradas:
 
----
-
-## ⚙️ Configuração do Ambiente
-
-O [`env.rb`](features/support/env.rb) configura o Capybara para usar o **Selenium com Chrome**:
-
-```ruby
-require 'capybara/cucumber'
-require 'selenium-webdriver'
-
-Capybara.configure do |config|
-  config.default_driver = :selenium_chrome
-  config.default_max_wait_time = 5
-end
+```bash
+bundle exec cucumber -t "@smoke"
 ```
 
-O [`hooks.rb`](features/support/hooks.rb) inicializa os Page Objects antes de cada cenário:
+## Configurações De Ambiente
 
-```ruby
-Before do
-  @home = HomePage.new
-  @checkout = CheckoutPage.new
-  @popup = Popup.new
-end
+A automação usa `https://starbugs-qa.vercel.app` como ambiente padrão. Para apontar para outro ambiente, use `STARBUGS_BASE_URL`:
+
+```bash
+STARBUGS_BASE_URL="https://sua-url.com" bundle exec cucumber
 ```
 
----
+No PowerShell:
 
-## 📋 Pré-requisitos
-
-Antes de executar o projeto, certifique-se de ter instalado:
-
-- [x] **Ruby** (versão 3.0+) — [Download](https://www.ruby-lang.org/pt/downloads/)
-- [x] **Bundler** — instale com `gem install bundler`
-- [x] **Google Chrome** — navegador utilizado para a automação
-- [x] **ChromeDriver** — compatível com a versão do seu Chrome
-
-> [!TIP]
-> No Windows, recomendo usar o [RubyInstaller](https://rubyinstaller.org/) para facilitar a instalação do Ruby e suas dependências.
-
----
-
-## 💡 Como executar localmente
-
-1. **Clone o repositório:**
-
-   ```bash
-   git clone https://github.com/DouglasAntoni0/BDD-cucumber.git
-   ```
-
-2. **Acesse a pasta do projeto:**
-
-   ```bash
-   cd BDD-cucumber/projects/starbugs-cucumber
-   ```
-
-3. **Instale as dependências:**
-
-   ```bash
-   bundle install
-   ```
-
-4. **Execute todos os testes:**
-
-   ```bash
-   bundle exec cucumber
-   ```
-
-5. **Execute cenários por tag (opcional):**
-
-   ```bash
-   # Executar apenas cenários marcados com @smoke
-   bundle exec cucumber -t @smoke
-
-   # No PowerShell, escape o @
-   bundle exec cucumber -t "@smoke"
-   ```
-
----
-
-## 🧪 Resultado Esperado
-
-Ao rodar `bundle exec cucumber`, o terminal exibirá algo como:
-
-```
-Using the default profile...
-
-Funcionalidade: Catálogo de cafés
-
-  Cenário: Acessar o catálogo de cafés na pagina principal  ✅
-  Cenário: Iniciar a compra de um café                      ✅
-  Cenário: Café indisponivel                                ✅
-
-Funcionalidade: Pedidos
-
-  Cenario: Compra bem sucedida                              ⏳ (pending)
-
-4 scenarios (1 pending, 3 passed)
-19 steps (17 passed, 1 pending, 1 skipped)
+```powershell
+$env:STARBUGS_BASE_URL = "https://sua-url.com"
+bundle exec cucumber
 ```
 
----
+Por padrão, a execução local usa Chrome visível. Em CI, o projeto usa Chrome headless automaticamente. Também é possível forçar o driver manualmente:
 
-## 🌱 Status do Projeto
+```bash
+CAPYBARA_DRIVER="selenium_chrome_headless" bundle exec cucumber
+```
 
-🚧 **Em Desenvolvimento Contínuo** — Cenários do catálogo passando ✅ | Pedidos em progresso ⏳
+## CI/CD
 
-Este projeto está em constante evolução. À medida que avanço no curso, vou implementando novos cenários, novas features e aprimorando o código existente.
+O projeto possui workflow em `.github/workflows/ci.yml`, executado em:
 
-| Funcionalidade | Status |
+- `push` na branch `main`
+- `pull_request`
+- execução manual via `workflow_dispatch`
+
+A pipeline roda no Ubuntu, instala Ruby com cache de Bundler, executa `bundle exec cucumber` dentro de `projects/starbugs-cucumber` e publica `logs/` como artefato quando ocorre falha. Isso cria uma trilha mínima de evidência para investigar problemas sem poluir o repositório com screenshots locais.
+
+## Padrão De Qualidade
+
+Alguns cuidados aplicados nesta base:
+
+- Cenários Gherkin em português, com linguagem clara e foco no comportamento do usuário.
+- Page Objects com responsabilidades pequenas e bem definidas.
+- Steps objetivos, reaproveitáveis e alinhados à escrita dos cenários.
+- Configuração headless isolada para CI, preservando a experiência local.
+- `.editorconfig` e `.gitattributes` para manter espaçamento, indentação e quebras de linha consistentes.
+- `.gitignore` para evitar versionamento de evidências locais e arquivos temporários.
+
+## Status
+
+| Área | Status |
 |:---|:---:|
-| Catálogo de cafés | ✅ Concluído |
-| Fluxo de compra (checkout) | ✅ Concluído |
-| Produto indisponível (popup) | ✅ Concluído |
-| Dados via tabelas Gherkin (rows_hash) | ✅ Concluído |
-| Page Object Pattern | ✅ Concluído |
-| Hooks (inicialização automática) | ✅ Concluído |
-| Pedidos — fluxo completo (CEP, endereço, pagamento) | 🔧 Em andamento |
-| Validação da confirmação de pedido | 📋 Planejado |
+| Catálogo de cafés | Concluído |
+| Produto indisponível | Concluído |
+| Fluxo completo de pedidos | Concluído |
+| Validação de cupons | Concluído |
+| Page Object Pattern | Concluído |
+| GitHub Actions | Concluído |
+| Evidências em falha | Concluído |
 
-> [!NOTE]
-> Este repositório é um **"organismo vivo"**. Volte sempre para conferir as novas atualizações, automações e melhorias que estou implementando ao longo da minha jornada de aprendizado!
+## Autor
 
----
-
-## 📚 O que eu aprendi até agora
-
-- ✅ Escrever cenários BDD com a sintaxe Gherkin em português
-- ✅ Conectar steps em Gherkin com código Ruby utilizando expressões regulares e `{string}`
-- ✅ Configurar o Capybara com Selenium para automação web
-- ✅ Usar seletores CSS para interagir com elementos da página
-- ✅ Utilizar asserções RSpec (`expect`, `to eq`, `to eql`, `to be >`)
-- ✅ Compartilhar estado entre steps usando variáveis de instância (`@product`)
-- ✅ Gerenciar dependências com Bundler e Gemfile
-- ✅ Configurar o Cucumber com `cucumber.yml`
-- ✅ Executar testes filtrados por tags (`-t @tag`)
-- ✅ Usar tabelas Gherkin com `rows_hash` para passar dados estruturados aos steps
-- ✅ Validar popups e alertas de UI (SweetAlert2) nos testes
-- ✅ Reutilizar steps genéricos para diferentes cenários de teste
-- ✅ Implementar o padrão **Page Object** para organizar a automação
-- ✅ Utilizar **hooks** (`Before`) para inicializar objetos antes dos cenários
-- ✅ Separar step definitions por feature (catalogo, pedidos)
-- ✅ Automatizar interações com formulários (CEP, endereço, pagamento)
-
----
-
-## 🤝 Contribuições
-
-Este é um projeto de estudos pessoal, mas sugestões e feedbacks são sempre bem-vindos! Sinta-se à vontade para abrir uma **issue** ou enviar um **pull request**.
-
----
-
-## 📄 Licença
-
-Este projeto é de uso livre para fins educacionais.
-
----
-
-> **Feito com ☕ e dedicação por [Douglas Antonio](https://github.com/DouglasAntoni0)**
+Projeto desenvolvido por [Douglas Antonio](https://github.com/DouglasAntoni0), com foco em demonstrar uma abordagem cuidadosa para automação de testes E2E, escrita de cenários BDD e organização profissional de código.

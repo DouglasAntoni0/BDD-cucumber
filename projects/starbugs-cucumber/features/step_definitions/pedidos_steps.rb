@@ -1,7 +1,3 @@
-Dado('que estou na pagina principal da Starbugs') do
-  @home.open
-end
-
 Dado('que iniciei a compra do item {string}') do |product_name|
   @home.buy(product_name)
 end
@@ -22,10 +18,10 @@ Quando('por fim finalizo a compra') do
   @checkout.submit_order
 end
 
-Então('sou redirecionado para a página de confirmação de Pedidos') do
+Então('sou redirecionado para a página de confirmação de pedidos') do
   @order.assert_order
 end
 
-Então('deve ser informando o seguinte prazo de entrega: {string}') do |delivery_time|
+Então('deve ser informado o seguinte prazo de entrega: {string}') do |delivery_time|
   @order.assert_delivery_time(delivery_time)
 end

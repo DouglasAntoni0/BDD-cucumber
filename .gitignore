@@ -1,0 +1,12 @@
+# Ruby/Bundler
+.bundle/
+vendor/bundle/
+
+# Evidencias locais de testes
+projects/starbugs-cucumber/logs/
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

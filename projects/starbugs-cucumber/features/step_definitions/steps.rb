@@ -6,7 +6,7 @@ Então('eu devo ver uma lista de cafés disponíveis') do
   expect(@home.coffee_list.size).to be > 0
 end
 
-Dado('que estou na página de principal da Starbugs') do
+Dado('que estou na página principal da Starbugs') do
   @home.open
 end
 
@@ -30,7 +30,7 @@ Quando('inicio a compra desse item') do
   @home.buy(@product[:name])
 end
 
-Então('devo ver a pagina de Checkout com os detalhes do produto') do
+Então('devo ver a página de checkout com os detalhes do produto') do
   @checkout.assert_product_details(@product)
 end
 
@@ -38,6 +38,6 @@ Então('o valor total da compra deve ser {string}') do |total_price|
   @checkout.assert_total_price(total_price)
 end
 
-Então('devo ver um popup informando que o produto está indisponivel') do
+Então('devo ver um popup informando que o produto está indisponível') do
   @popup.have_text('Produto indisponível')
 end

@@ -4,8 +4,8 @@ class Popup
   include Capybara::DSL
   include RSpec::Matchers
 
-  def have_text(text)
+  def have_text(expected_text)
     popup = find('.swal2-html-container')
-    expect(popup.text).to eql 'Produto indisponível'
+    expect(popup.text).to eql expected_text
   end
 end
